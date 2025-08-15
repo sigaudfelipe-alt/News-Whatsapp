@@ -413,8 +413,8 @@ def daily_job(send_message: bool = False) -> None:
         message = prepare_news_message(
             articles,
             tz="America/Sao_Paulo",
-            max_articles=8,
-            max_chars=1300,
+            max_articles=5,
+            max_chars=1200,
         )
     except Exception as exc:
         logging.error(f"Failed to build news message: {exc}")
