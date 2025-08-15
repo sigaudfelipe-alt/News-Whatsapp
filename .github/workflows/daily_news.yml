@@ -1,0 +1,38 @@
+name: Daily News Summary
+
+on:
+  # agenda para 09:00 UTC (06:00 em São Paulo)
+  schedule:
+    - cron: '0 9 * * *'
+  # permite disparar manualmente
+  workflow_dispatch:
+
+jobs:
+  run-news-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          # instale dependências básicas
+          pip install feedparser requests beautifulsoup4 schedule pytz twilio
+          # fixe a versão do openai para evitar a mudança da API
+          pip install "openai==0.28"
+
+      - name: Run news agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+        run: |
+          # Execute o job com envio ativado
+          python3 -c "import news_agent; news_agent.daily_job(send_message=True)"
