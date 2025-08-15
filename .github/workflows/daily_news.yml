@@ -18,10 +18,9 @@ jobs:
           python-version: '3.11'
 
 - name: Install dependencies
-  run:
+  run: |
     pip install feedparser requests beautifulsoup4 schedule pytz twilio
-    pip install openai==0.28  # fixa na versão compatível
-
+    pip install openai==0.28
 
       - name: Run news agent
         env:
