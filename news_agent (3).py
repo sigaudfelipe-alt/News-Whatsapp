@@ -414,7 +414,7 @@ def daily_job(send_message: bool = False) -> None:
             articles,
             tz="America/Sao_Paulo",
             max_articles=10,
-            max_chars=1500,
+            max_chars=1400,
         )
     except Exception as exc:
         logging.error(f"Failed to build news message: {exc}")
@@ -445,6 +445,6 @@ def schedule_daily_news(send_message: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    daily_job(send_message=False)
+    daily_job(send_message=True)
     # To schedule automatically, uncomment the following line:
     # schedule_daily_news(send_message=True)
