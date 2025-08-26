@@ -33,6 +33,7 @@ jobs:
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          CONTENT_SID_DAILY: ${{ secrets.CONTENT_SID_DAILY }} 
         run: |
           # Execute o job com envio ativado
           python3 -c "import news_agent; news_agent.daily_job(send_message=True)"
